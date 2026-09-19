@@ -245,7 +245,7 @@
 <div class="container">
 
 ```
-<h1>📋 Steel Sheet Quotation</h1>
+<h1>📋 SK AIR SYSTEM Steel Sheet Quotation</h1>
 <p class="subtitle">Select your requirements and get an instant quote</p>
 
 <!-- Form -->
@@ -818,3 +818,174 @@
                             /sheet
 
                             <br>
+
+                            Subtotal:
+                            ₹${order.subtotal.toFixed(2)}
+
+                            <br>
+
+                            CGST (9%):
+                            ₹${order.cgstAmount.toFixed(2)}
+
+                            |
+
+                            SGST (9%):
+                            ₹${order.sgstAmount.toFixed(2)}
+
+                            <br>
+
+                            <strong>
+                                Total:
+                                ₹${order.total.toFixed(2)}
+                            </strong>
+
+                            <br>
+
+                            ${gstLabel}
+
+                        </div>
+
+                        <div class="order-actions">
+
+                            <button
+                                class="edit-btn"
+                                onclick="editOrder(${order.id})"
+                            >
+                                ✏️ Edit
+                            </button>
+
+                            <button
+                                class="delete-btn"
+                                onclick="deleteOrder(${order.id})"
+                            >
+                                🗑️ Delete
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+        orderListDiv.innerHTML = html;
+
+    }
+
+
+    // Edit order
+    window.editOrder = function(id) {
+
+        const order =
+            orders.find(
+                o => o.id === id
+            );
+
+        if (!order) return;
+
+
+        // Find thickness by text
+        for (
+            let i = 0;
+            i < thicknessSelect.options.length;
+            i++
+        ) {
+
+            if (
+                thicknessSelect.options[i].text ===
+                order.thickness
+            ) {
+
+                thicknessSelect.value =
+                    thicknessSelect.options[i].value;
+
+                break;
+
+            }
+
+        }
+
+
+        quantityInput.value =
+            order.quantity;
+
+
+        if (order.gst) {
+
+            document.querySelector(
+                'input[name="gst"][value="yes"]'
+            ).checked = true;
+
+        } else {
+
+            document.querySelector(
+                'input[name="gst"][value="no"]'
+            ).checked = true;
+
+        }
+
+
+        updateCalculation();
+
+
+        // Remove old order
+        orders =
+            orders.filter(
+                o => o.id !== id
+            );
+
+
+        localStorage.setItem(
+            'steelSheetOrders',
+            JSON.stringify(orders)
+        );
+
+
+        renderOrders();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    };
+
+
+    // Delete order
+    window.deleteOrder = function(id) {
+
+        if (
+            !confirm(
+                'Delete this order?'
+            )
+        ) return;
+
+
+        orders =
+            orders.filter(
+                o => o.id !== id
+            );
+
+
+        localStorage.setItem(
+            'steelSheetOrders',
+            JSON.stringify(orders)
+        );
+
+
+        renderOrders();
+
+    };
+
+
+    // Initial render
+    renderOrders();
+
+</script>
+
+</body>
+</html>
