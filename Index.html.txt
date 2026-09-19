@@ -237,11 +237,11 @@
             <label for="thickness">Sheet Thickness</label>
             <select id="thickness" required>
                 <option value="">-- Select --</option>
-                <option value="1" data-price="2.50">1mm - $2.50/sqft</option>
-                <option value="2" data-price="4.00">2mm - $4.00/sqft</option>
-                <option value="3" data-price="5.50">3mm - $5.50/sqft</option>
-                <option value="4" data-price="7.00">4mm - $7.00/sqft</option>
-                <option value="5" data-price="8.50">5mm - $8.50/sqft</option>
+                <option value="1" data-price="1220">1mm - $2.50/sqft</option>
+                <option value="2" data-price="1400">2mm - $4.00/sqft</option>
+                <option value="3" data-price="1550">3mm - $5.50/sqft</option>
+                <option value="4" data-price="1700">4mm - $7.00/sqft</option>
+                <option value="5" data-price="1850">5mm - $8.50/sqft</option>
             </select>
         </div>
 
