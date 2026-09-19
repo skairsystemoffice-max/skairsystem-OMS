@@ -237,11 +237,11 @@
             <label for="thickness">Sheet Thickness</label>
             <select id="thickness" required>
                 <option value="">-- Select --</option>
-                <option value="1" data-price="1250">0.6mm - 24G </option>
-                <option value="2" data-price="1400">0.8mm - 22 </option>
-                <option value="3" data-price="1550">0.7mm - 23G </option>
-                <option value="4" data-price="7.00">1mm - 20G </option>
-                <option value="5" data-price="8.50">1.2mm - 18G </option>
+                <option value="1" data-price="1250">1mm - $1250/sqft</option>
+                <option value="2" data-price="1400">2mm - $1400/sqft</option>
+                <option value="3" data-price="1550">3mm - $24G</option>
+                <option value="4" data-price="7.00">4mm - $22G</option>
+                <option value="5" data-price="8.50">5mm - $20G</option>
             </select>
         </div>
 
@@ -311,11 +311,11 @@
 <script>
     // Predefined rates (same as dropdown)
     const rates = {
-        '1': 1220,
+        '1': 1250,
         '2': 1400,
         '3': 1550,
-        '4': 1700,
-        '5': 1850
+        '4': 7.00,
+        '5': 8.50
     };
     const GST_RATE = 0.18;
 
