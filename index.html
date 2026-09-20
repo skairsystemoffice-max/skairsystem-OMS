@@ -357,22 +357,17 @@
          ========================================== -->
     <div class="form-group">
 
-      <label for="Type of Sheet ">
-        Type of Sheet  <span class="required">*</span>
-      </label>
+      <label for="typeOfSheet">
+  Type of Sheet <span class="required">*</span>
+</label>
 
-      <select id="Type of Sheet" required>
+<select id="typeOfSheet" required>
 
         <option value="">
           -- Select Type of Sheet --
-        </option>
-
-        <option value="1">
-          Groove
-        </option>
-
-        <option value="2">
-          Plain
+    <option value="">-- Select Type of Sheet --</option>
+<option value="Groove">Groove</option>
+<option value="Plain">Plain</option>
                       
       </select>
 
@@ -683,8 +678,8 @@ const mobileNoInput =
 
 const thicknessSelect =
   document.getElementById("thickness");
-const typeofSheetSelect =
-  sheetType: document.getElementById("Type of Sheet").value
+const typeOfSheetSelect =
+  document.getElementById("typeOfSheet");
 
 const quantityInput =
   document.getElementById("quantity");
@@ -1363,6 +1358,8 @@ quoteForm.addEventListener(
 
       thickness:
         selectedOption.text,
+      type: 
+        typeOfSheetSelect.value,
 
       quantity:
         calc.quantity,
