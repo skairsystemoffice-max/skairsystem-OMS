@@ -1,865 +1,545 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steel Sheet Quotation</title>
 
-```
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Steel Sheet Quotation</title>
-
-
-<style>
-
+  <style>
     * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-
 
     body {
-
-        font-family:
-            'Segoe UI',
-            Tahoma,
-            Geneva,
-            Verdana,
-            sans-serif;
-
-        background: #f0f4f8;
-
-        padding: 20px;
-
-        display: flex;
-
-        justify-content: center;
-
-        align-items: flex-start;
-
-        min-height: 100vh;
-
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
     }
-
 
     .container {
-
-        max-width: 800px;
-
-        width: 100%;
-
-        background: white;
-
-        border-radius: 16px;
-
-        box-shadow:
-            0 10px 30px
-            rgba(0,0,0,0.1);
-
-        padding: 30px;
-
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 30px;
     }
-
 
     h1 {
-
-        color: #1a365d;
-
-        margin-bottom: 8px;
-
-        font-size: 28px;
-
+      color: #1a365d;
+      margin-bottom: 8px;
+      font-size: 28px;
     }
-
 
     .subtitle {
-
-        color: #4a5568;
-
-        margin-bottom: 24px;
-
-        font-size: 14px;
-
+      color: #4a5568;
+      margin-bottom: 24px;
+      font-size: 14px;
     }
-
 
     .form-group {
-
-        margin-bottom: 18px;
-
+      margin-bottom: 18px;
     }
-
 
     label {
-
-        display: block;
-
-        font-weight: 600;
-
-        color: #2d3748;
-
-        margin-bottom: 6px;
-
-        font-size: 14px;
-
+      display: block;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
-
 
     select,
     input[type="number"] {
-
-        width: 100%;
-
-        padding: 10px 14px;
-
-        border:
-            2px solid #e2e8f0;
-
-        border-radius: 8px;
-
-        font-size: 16px;
-
-        background: #f7fafc;
-
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      background: #f7fafc;
     }
-
 
     select:focus,
     input:focus {
-
-        outline: none;
-
-        border-color: #3182ce;
-
-        background: white;
-
+      outline: none;
+      border-color: #3182ce;
+      background: white;
     }
-
 
     .radio-group {
-
-        display: flex;
-
-        gap: 20px;
-
-        margin-top: 4px;
-
-        flex-wrap: wrap;
-
+      display: flex;
+      gap: 20px;
+      margin-top: 4px;
+      flex-wrap: wrap;
     }
-
 
     .radio-group label {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 6px;
-
-        font-weight: 500;
-
-        cursor: pointer;
-
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      cursor: pointer;
     }
-
 
     .radio-group input[type="radio"] {
-
-        width: 18px;
-
-        height: 18px;
-
-        accent-color: #3182ce;
-
+      width: 18px;
+      height: 18px;
+      accent-color: #3182ce;
     }
-
 
     .price-info {
-
-        background: #ebf8ff;
-
-        border-left:
-            4px solid #3182ce;
-
-        padding: 12px 16px;
-
-        border-radius: 8px;
-
-        margin: 16px 0;
-
-        font-size: 14px;
-
-        color: #2b6cb0;
-
+      background: #ebf8ff;
+      border-left: 4px solid #3182ce;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #2b6cb0;
     }
-
 
     .price-info span {
-
-        font-weight: 700;
-
+      font-weight: 700;
     }
-
 
     .calculation {
-
-        background: #f7fafc;
-
-        border-radius: 12px;
-
-        padding: 20px;
-
-        margin: 20px 0;
-
+      background: #f7fafc;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
     }
-
 
     .calc-row {
-
-        display: flex;
-
-        justify-content: space-between;
-
-        padding: 6px 0;
-
-        font-size: 15px;
-
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 15px;
     }
-
-
-    .calc-row.total {
-
-        font-size: 20px;
-
-        font-weight: 700;
-
-        border-top:
-            2px solid #e2e8f0;
-
-        padding-top: 12px;
-
-        margin-top: 8px;
-
-        color: #2d3748;
-
-    }
-
 
     .calc-row.gst-amount {
-
-        color: #718096;
-
+      color: #718096;
     }
 
+    .calc-row.total {
+      font-size: 20px;
+      font-weight: 700;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 12px;
+      margin-top: 8px;
+      color: #2d3748;
+    }
 
     .btn-group {
-
-        display: flex;
-
-        gap: 12px;
-
-        margin-top: 20px;
-
-        flex-wrap: wrap;
-
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
     }
-
 
     .btn {
-
-        padding: 12px 28px;
-
-        border: none;
-
-        border-radius: 8px;
-
-        font-size: 16px;
-
-        font-weight: 600;
-
-        cursor: pointer;
-
-        flex: 1;
-
-        min-width: 140px;
-
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      min-width: 140px;
     }
-
 
     .btn-primary {
-
-        background: #3182ce;
-
-        color: white;
-
+      background: #3182ce;
+      color: white;
     }
-
 
     .btn-primary:hover {
-
-        background: #2b6cb0;
-
+      background: #2b6cb0;
     }
-
 
     .btn-primary:disabled {
-
-        background: #90cdf4;
-
-        cursor: not-allowed;
-
+      background: #90cdf4;
+      cursor: not-allowed;
     }
-
 
     .btn-secondary {
-
-        background: #e2e8f0;
-
-        color: #2d3748;
-
+      background: #e2e8f0;
+      color: #2d3748;
     }
-
 
     .btn-secondary:hover {
-
-        background: #cbd5e0;
-
+      background: #cbd5e0;
     }
-
-
-    .order-history {
-
-        margin-top: 40px;
-
-        border-top:
-            2px solid #e2e8f0;
-
-        padding-top: 24px;
-
-    }
-
-
-    .order-history h2 {
-
-        font-size: 20px;
-
-        color: #1a365d;
-
-        margin-bottom: 16px;
-
-    }
-
-
-    .order-card {
-
-        background: #f7fafc;
-
-        border-radius: 10px;
-
-        padding: 16px;
-
-        margin-bottom: 12px;
-
-        border:
-            1px solid #e2e8f0;
-
-    }
-
-
-    .order-details {
-
-        font-size: 14px;
-
-        line-height: 1.7;
-
-    }
-
-
-    .order-actions {
-
-        display: flex;
-
-        gap: 8px;
-
-        margin-top: 10px;
-
-    }
-
-
-    .order-actions button {
-
-        padding: 6px 16px;
-
-        font-size: 13px;
-
-        border: none;
-
-        border-radius: 6px;
-
-        cursor: pointer;
-
-    }
-
-
-    .edit-btn {
-
-        background: #ecc94b;
-
-        color: #744210;
-
-    }
-
-
-    .delete-btn {
-
-        background: #fc8181;
-
-        color: white;
-
-    }
-
-
-    .empty-orders {
-
-        color: #a0aec0;
-
-        text-align: center;
-
-        padding: 20px;
-
-    }
-
 
     .status {
-
-        display: none;
-
-        padding: 12px;
-
-        border-radius: 8px;
-
-        margin-bottom: 15px;
-
-        font-size: 14px;
-
+      display: none;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 14px;
     }
-
 
     .status.success {
-
-        display: block;
-
-        background: #c6f6d5;
-
-        color: #22543d;
-
+      display: block;
+      background: #c6f6d5;
+      color: #22543d;
     }
-
 
     .status.error {
-
-        display: block;
-
-        background: #fed7d7;
-
-        color: #742a2a;
-
+      display: block;
+      background: #fed7d7;
+      color: #742a2a;
     }
 
+    .status.info {
+      display: block;
+      background: #bee3f8;
+      color: #2a4365;
+    }
+
+    .order-history {
+      margin-top: 40px;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 24px;
+    }
+
+    .order-history h2 {
+      font-size: 20px;
+      color: #1a365d;
+      margin-bottom: 16px;
+    }
+
+    .order-card {
+      background: #f7fafc;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .order-details {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .order-actions button {
+      padding: 6px 16px;
+      font-size: 13px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #ecc94b;
+      color: #744210;
+    }
+
+    .delete-btn {
+      background: #fc8181;
+      color: white;
+    }
+
+    .empty-orders {
+      color: #a0aec0;
+      text-align: center;
+      padding: 20px;
+    }
 
     @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
 
-        .container {
-
-            padding: 20px;
-
-        }
-
-
-        .btn-group {
-
-            flex-direction: column;
-
-        }
-
+      .btn-group {
+        flex-direction: column;
+      }
     }
-
-</style>
-```
-
+  </style>
 </head>
 
 <body>
 
 <div class="container">
 
-```
-<h1>
-    📋 Steel Sheet Quotation
-</h1>
+  <h1>📋 Steel Sheet Quotation</h1>
 
-
-<p class="subtitle">
+  <p class="subtitle">
     Select your requirements and get an instant quote
-</p>
+  </p>
 
+  <div id="statusMessage" class="status"></div>
 
-<!-- Status message -->
-
-<div
-    id="statusMessage"
-    class="status"
-></div>
-
-
-<!-- FORM -->
-
-<form id="quoteForm">
-
+  <form id="quoteForm">
 
     <!-- SHEET THICKNESS -->
-
     <div class="form-group">
 
-        <label for="thickness">
-            Sheet Thickness
-        </label>
+      <label for="thickness">
+        Sheet Thickness
+      </label>
 
+      <select id="thickness" required>
 
-        <select
-            id="thickness"
-            required
-        >
+        <option value="">
+          -- Select --
+        </option>
 
-            <option value="">
-                -- Select --
-            </option>
+        <option value="1">
+          22G - 0.80 mm
+        </option>
 
+        <option value="2">
+          24G - 0.60 mm
+        </option>
 
-            <option
-                value="1"
-                data-price="1250"
-            >
-                22G - 0.80 mm
-            </option>
+        <option value="3">
+          23G - 0.70 mm
+        </option>
 
+        <option value="4">
+          18G - 1.20 mm
+        </option>
 
-            <option
-                value="2"
-                data-price="1400"
-            >
-                24G - 0.60 mm
-            </option>
+        <option value="5">
+          20G - 1.00 mm
+        </option>
 
-
-            <option
-                value="3"
-                data-price="1550"
-            >
-                23G - 0.70 mm
-            </option>
-
-
-            <option
-                value="4"
-                data-price="7"
-            >
-                18G - 1.20 mm
-            </option>
-
-
-            <option
-                value="5"
-                data-price="8.50"
-            >
-                20G - 1.00 mm
-            </option>
-
-        </select>
+      </select>
 
     </div>
 
 
     <!-- QUANTITY -->
-
     <div class="form-group">
 
-        <label for="quantity">
-            Quantity (sheets)
-        </label>
+      <label for="quantity">
+        Quantity (sheets)
+      </label>
 
-
-        <input
-            type="number"
-            id="quantity"
-            min="1"
-            step="1"
-            value="1"
-            required
-        >
+      <input
+        type="number"
+        id="quantity"
+        min="1"
+        step="1"
+        value="1"
+        required
+      >
 
     </div>
 
 
     <!-- GST -->
-
     <div class="form-group">
 
+      <label>
+        GST Option
+      </label>
+
+      <div class="radio-group">
+
         <label>
-            GST Option
+          <input
+            type="radio"
+            name="gst"
+            value="no"
+            checked
+          >
+          Non-GST
         </label>
 
+        <label>
+          <input
+            type="radio"
+            name="gst"
+            value="yes"
+          >
+          GST - CGST 9% + SGST 9%
+        </label>
 
-        <div class="radio-group">
-
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="gst"
-                    value="no"
-                    checked
-                >
-
-                Non-GST
-
-            </label>
-
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="gst"
-                    value="yes"
-                >
-
-                GST - CGST 9% + SGST 9%
-
-            </label>
-
-
-        </div>
+      </div>
 
     </div>
 
 
     <!-- PRICE -->
-
     <div class="price-info">
 
-        Selected:
-        <span id="selectedThickness">
-            —
-        </span>
+      Selected:
+      <span id="selectedThickness">—</span>
 
-        &nbsp; | &nbsp;
+      &nbsp; | &nbsp;
 
-        Rate:
-        <span id="rateDisplay">
-            ₹0.00
-        </span>
+      Rate:
+      <span id="rateDisplay">₹0.00</span>
 
-        /sheet
+      /sheet
 
     </div>
 
 
     <!-- CALCULATION -->
-
     <div class="calculation">
 
+      <div class="calc-row">
 
-        <div class="calc-row">
+        <span>
+          Quantity
+        </span>
 
-            <span>
-                Quantity
-            </span>
+        <span id="quantityDisplay">
+          0 sheets
+        </span>
 
-            <span id="quantityDisplay">
-                0 sheets
-            </span>
-
-        </div>
-
-
-        <div class="calc-row">
-
-            <span>
-                Subtotal
-            </span>
-
-            <span id="subtotalDisplay">
-                ₹0.00
-            </span>
-
-        </div>
+      </div>
 
 
-        <!-- CGST -->
+      <div class="calc-row">
 
-        <div
-            class="calc-row gst-amount"
-            id="cgstRow"
-            style="display:none;"
-        >
+        <span>
+          Subtotal
+        </span>
 
-            <span>
-                CGST (9%)
-            </span>
+        <span id="subtotalDisplay">
+          ₹0.00
+        </span>
 
-            <span id="cgstDisplay">
-                ₹0.00
-            </span>
-
-        </div>
+      </div>
 
 
-        <!-- SGST -->
+      <div
+        class="calc-row gst-amount"
+        id="cgstRow"
+        style="display:none;"
+      >
 
-        <div
-            class="calc-row gst-amount"
-            id="sgstRow"
-            style="display:none;"
-        >
+        <span>
+          CGST (9%)
+        </span>
 
-            <span>
-                SGST (9%)
-            </span>
+        <span id="cgstDisplay">
+          ₹0.00
+        </span>
 
-            <span id="sgstDisplay">
-                ₹0.00
-            </span>
-
-        </div>
+      </div>
 
 
-        <!-- TOTAL -->
+      <div
+        class="calc-row gst-amount"
+        id="sgstRow"
+        style="display:none;"
+      >
 
-        <div class="calc-row total">
+        <span>
+          SGST (9%)
+        </span>
 
-            <span>
-                Total
-            </span>
+        <span id="sgstDisplay">
+          ₹0.00
+        </span>
 
-            <span id="totalDisplay">
-                ₹0.00
-            </span>
+      </div>
 
-        </div>
 
+      <div class="calc-row total">
+
+        <span>
+          Total
+        </span>
+
+        <span id="totalDisplay">
+          ₹0.00
+        </span>
+
+      </div>
 
     </div>
 
 
     <!-- BUTTONS -->
-
     <div class="btn-group">
 
+      <button
+        type="submit"
+        class="btn btn-primary"
+        id="submitBtn"
+      >
+        📩 Submit Order
+      </button>
 
-        <button
-            type="submit"
-            class="btn btn-primary"
-            id="submitBtn"
-        >
-            📩 Submit Order
-        </button>
-
-
-        <button
-            type="button"
-            class="btn btn-secondary"
-            id="resetBtn"
-        >
-            🔄 Reset
-        </button>
-
+      <button
+        type="button"
+        class="btn btn-secondary"
+        id="resetBtn"
+      >
+        🔄 Reset
+      </button>
 
     </div>
 
+  </form>
 
-</form>
 
-
-<!-- ORDER HISTORY -->
-
-<div class="order-history">
-
+  <!-- ORDER HISTORY -->
+  <div class="order-history">
 
     <h2>
-        📦 Your Orders
+      📦 Your Orders
     </h2>
 
+    <div id="orderList"></div>
 
-    <div id="orderList">
-
-        <div class="empty-orders">
-            No orders yet.
-            Submit your first quote above.
-        </div>
-
-    </div>
-
+  </div>
 
 </div>
-```
 
-</div>
 
 <script>
-
 
 /* =====================================================
    GOOGLE APPS SCRIPT WEB APP URL
    =====================================================
 
-   AFTER DEPLOYING GOOGLE APPS SCRIPT:
-
-   Deploy
-   → New deployment
-   → Web app
-   → Execute as: Me
-   → Who has access: Anyone
-
-   Copy the /exec URL and paste it below.
-
-===================================================== */
-
+   This is your current /exec URL.
+   ===================================================== */
 
 const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbyfGbakra6fLD0omRR_gRlxcTtYe9pFbIhTX1nx5j9lXE6NTV5H_v2OYCYGz0CV_uzC/exec";
+"https://script.google.com/macros/s/AKfycbyfGbakra6fLD0omRR_gRlxcTtYe9pFbIhTX1nx5j9lXE6NTV5H_v2OYCYGz0CV_uzC/exec";
 
 
 /* =====================================================
    RATES
-===================================================== */
+   ===================================================== */
 
 const rates = {
 
-    "1": 1250,
+  "1": 1250,
 
-    "2": 1400,
+  "2": 1400,
 
-    "3": 1550,
+  "3": 1550,
 
-    "4": 7.00,
+  "4": 7.00,
 
-    "5": 8.50
+  "5": 8.50
 
 };
 
 
 /* =====================================================
    GST
-===================================================== */
+   ===================================================== */
 
 const CGST_RATE = 0.09;
 
@@ -868,909 +548,940 @@ const SGST_RATE = 0.09;
 
 /* =====================================================
    DOM ELEMENTS
-===================================================== */
+   ===================================================== */
+
+const quoteForm =
+document.getElementById("quoteForm");
 
 const thicknessSelect =
-    document.getElementById("thickness");
-
+document.getElementById("thickness");
 
 const quantityInput =
-    document.getElementById("quantity");
-
+document.getElementById("quantity");
 
 const gstRadios =
-    document.querySelectorAll(
-        'input[name="gst"]'
-    );
-
+document.querySelectorAll(
+  'input[name="gst"]'
+);
 
 const selectedThicknessSpan =
-    document.getElementById(
-        "selectedThickness"
-    );
-
+document.getElementById(
+  "selectedThickness"
+);
 
 const rateDisplay =
-    document.getElementById(
-        "rateDisplay"
-    );
-
+document.getElementById(
+  "rateDisplay"
+);
 
 const quantityDisplay =
-    document.getElementById(
-        "quantityDisplay"
-    );
-
+document.getElementById(
+  "quantityDisplay"
+);
 
 const subtotalDisplay =
-    document.getElementById(
-        "subtotalDisplay"
-    );
-
+document.getElementById(
+  "subtotalDisplay"
+);
 
 const cgstDisplay =
-    document.getElementById(
-        "cgstDisplay"
-    );
-
+document.getElementById(
+  "cgstDisplay"
+);
 
 const sgstDisplay =
-    document.getElementById(
-        "sgstDisplay"
-    );
-
+document.getElementById(
+  "sgstDisplay"
+);
 
 const totalDisplay =
-    document.getElementById(
-        "totalDisplay"
-    );
-
+document.getElementById(
+  "totalDisplay"
+);
 
 const cgstRow =
-    document.getElementById(
-        "cgstRow"
-    );
-
+document.getElementById(
+  "cgstRow"
+);
 
 const sgstRow =
-    document.getElementById(
-        "sgstRow"
-    );
-
+document.getElementById(
+  "sgstRow"
+);
 
 const submitBtn =
-    document.getElementById(
-        "submitBtn"
-    );
-
+document.getElementById(
+  "submitBtn"
+);
 
 const resetBtn =
-    document.getElementById(
-        "resetBtn"
-    );
-
+document.getElementById(
+  "resetBtn"
+);
 
 const statusMessage =
-    document.getElementById(
-        "statusMessage"
-    );
-
+document.getElementById(
+  "statusMessage"
+);
 
 const orderListDiv =
-    document.getElementById(
-        "orderList"
-    );
+document.getElementById(
+  "orderList"
+);
 
 
 /* =====================================================
    LOCAL ORDER HISTORY
-===================================================== */
+   ===================================================== */
 
 let orders =
-    JSON.parse(
-        localStorage.getItem(
-            "steelSheetOrders"
-        )
-    ) || [];
+JSON.parse(
+  localStorage.getItem(
+    "steelSheetOrders"
+  )
+) || [];
 
 
 /* =====================================================
-   STATUS MESSAGE
-===================================================== */
+   MONEY FORMAT
+   ===================================================== */
 
-function showStatus(message, type) {
+function formatMoney(value) {
 
-    statusMessage.textContent =
-        message;
+  return "₹" +
+    Number(value).toFixed(2);
 
-    statusMessage.className =
-        "status " + type;
+}
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+function showStatus(
+  message,
+  type
+) {
+
+  statusMessage.textContent =
+    message;
+
+  statusMessage.className =
+    "status " + type;
+
+}
+
+
+/* =====================================================
+   CALCULATION
+   ===================================================== */
+
+function getCalculation() {
+
+  const thickness =
+    thicknessSelect.value;
+
+  const quantity =
+    parseInt(
+      quantityInput.value,
+      10
+    ) || 0;
+
+  const gstSelected =
+    document.querySelector(
+      'input[name="gst"]:checked'
+    ).value === "yes";
+
+  const pricePerSheet =
+    rates[thickness] || 0;
+
+  const subtotal =
+    pricePerSheet *
+    quantity;
+
+  const cgstAmount =
+    gstSelected
+      ? subtotal * CGST_RATE
+      : 0;
+
+  const sgstAmount =
+    gstSelected
+      ? subtotal * SGST_RATE
+      : 0;
+
+  const total =
+    subtotal +
+    cgstAmount +
+    sgstAmount;
+
+  return {
+
+    thickness,
+
+    quantity,
+
+    gstSelected,
+
+    pricePerSheet,
+
+    subtotal,
+
+    cgstAmount,
+
+    sgstAmount,
+
+    total
+
+  };
 
 }
 
 
 /* =====================================================
    UPDATE CALCULATION
-===================================================== */
+   ===================================================== */
 
 function updateCalculation() {
 
-
-    const thickness =
-        thicknessSelect.value;
-
-
-    const quantity =
-        parseInt(
-            quantityInput.value
-        ) || 0;
+  const calc =
+    getCalculation();
 
 
-    const gstSelected =
-        document.querySelector(
-            'input[name="gst"]:checked'
-        ).value === "yes";
+  if (
+    calc.thickness &&
+    rates[calc.thickness] !== undefined
+  ) {
+
+    const selectedOption =
+      thicknessSelect.options[
+        thicknessSelect.selectedIndex
+      ];
+
+    selectedThicknessSpan.textContent =
+      selectedOption.text;
+
+    rateDisplay.textContent =
+      formatMoney(
+        calc.pricePerSheet
+      );
+
+  } else {
+
+    selectedThicknessSpan.textContent =
+      "—";
+
+    rateDisplay.textContent =
+      "₹0.00";
+
+  }
 
 
-    /* PRICE */
-
-    if (
-        thickness &&
-        rates[thickness]
-    ) {
+  quantityDisplay.textContent =
+    calc.quantity +
+    " sheets";
 
 
-        const selectedOption =
-            thicknessSelect.options[
-                thicknessSelect.selectedIndex
-            ];
+  subtotalDisplay.textContent =
+    formatMoney(
+      calc.subtotal
+    );
 
 
-        selectedThicknessSpan.textContent =
-            selectedOption.text;
+  cgstDisplay.textContent =
+    formatMoney(
+      calc.cgstAmount
+    );
 
 
-        rateDisplay.textContent =
-            "₹" +
-            rates[thickness].toFixed(2);
+  sgstDisplay.textContent =
+    formatMoney(
+      calc.sgstAmount
+    );
 
 
-    } else {
+  totalDisplay.textContent =
+    formatMoney(
+      calc.total
+    );
 
 
-        selectedThicknessSpan.textContent =
-            "—";
+  if (calc.gstSelected) {
 
+    cgstRow.style.display =
+      "flex";
 
-        rateDisplay.textContent =
-            "₹0.00";
+    sgstRow.style.display =
+      "flex";
 
-    }
+  } else {
 
+    cgstRow.style.display =
+      "none";
 
-    /* CALCULATION */
+    sgstRow.style.display =
+      "none";
 
-    const pricePerSheet =
-        rates[thickness] || 0;
-
-
-    const subtotal =
-        pricePerSheet * quantity;
-
-
-    const cgstAmount =
-        gstSelected
-            ? subtotal * CGST_RATE
-            : 0;
-
-
-    const sgstAmount =
-        gstSelected
-            ? subtotal * SGST_RATE
-            : 0;
-
-
-    const total =
-        subtotal +
-        cgstAmount +
-        sgstAmount;
-
-
-    /* DISPLAY */
-
-    quantityDisplay.textContent =
-        quantity + " sheets";
-
-
-    subtotalDisplay.textContent =
-        "₹" +
-        subtotal.toFixed(2);
-
-
-    cgstDisplay.textContent =
-        "₹" +
-        cgstAmount.toFixed(2);
-
-
-    sgstDisplay.textContent =
-        "₹" +
-        sgstAmount.toFixed(2);
-
-
-    totalDisplay.textContent =
-        "₹" +
-        total.toFixed(2);
-
-
-    /* GST VISIBILITY */
-
-    if (gstSelected) {
-
-        cgstRow.style.display =
-            "flex";
-
-        sgstRow.style.display =
-            "flex";
-
-    } else {
-
-        cgstRow.style.display =
-            "none";
-
-        sgstRow.style.display =
-            "none";
-
-    }
+  }
 
 }
 
 
 /* =====================================================
    EVENT LISTENERS
-===================================================== */
+   ===================================================== */
 
 thicknessSelect.addEventListener(
-    "change",
-    updateCalculation
+  "change",
+  updateCalculation
 );
 
 
 quantityInput.addEventListener(
-    "input",
-    updateCalculation
+  "input",
+  updateCalculation
 );
 
 
 gstRadios.forEach(
-    radio => {
+  function(radio) {
 
-        radio.addEventListener(
-            "change",
-            updateCalculation
-        );
+    radio.addEventListener(
+      "change",
+      updateCalculation
+    );
 
-    }
+  }
 );
 
 
 /* =====================================================
-   INITIAL CALCULATION
-===================================================== */
+   SUBMIT TO GOOGLE SHEETS
+   ===================================================== */
 
-updateCalculation();
+quoteForm.addEventListener(
+  "submit",
+  async function(e) {
 
+    e.preventDefault();
 
-/* =====================================================
-   SUBMIT ORDER TO GOOGLE SHEETS
-===================================================== */
 
-document
-    .getElementById("quoteForm")
-    .addEventListener(
-        "submit",
-        async function(e) {
+    const calc =
+      getCalculation();
 
 
-            e.preventDefault();
+    if (!calc.thickness) {
 
+      showStatus(
+        "Please select a sheet thickness.",
+        "error"
+      );
 
-            /* CHECK GOOGLE URL */
+      return;
 
-            if (
-                GOOGLE_SCRIPT_URL.includes(
-                    "PASTE_YOUR"
-                )
-            ) {
+    }
 
-                alert(
-                    "Please add your Google Apps Script Web App URL first."
-                );
 
-                return;
+    if (
+      !calc.quantity ||
+      calc.quantity < 1
+    ) {
 
-            }
+      showStatus(
+        "Please enter a valid quantity.",
+        "error"
+      );
 
+      return;
 
-            /* THICKNESS */
+    }
 
-            const thickness =
-                thicknessSelect.value;
 
+    const selectedOption =
+      thicknessSelect.options[
+        thicknessSelect.selectedIndex
+      ];
 
-            if (!thickness) {
 
-                alert(
-                    "Please select a sheet thickness."
-                );
+    /*
+      Generate order number.
+    */
 
-                return;
+    const orderNo =
+      "ORD-" + Date.now();
 
-            }
 
+    /*
+      Data sent to Google Apps Script.
+    */
 
-            /* QUANTITY */
+    const orderData = {
 
-            const quantity =
-                parseInt(
-                    quantityInput.value
-                );
+      orderNo:
+        orderNo,
 
+      thickness:
+        selectedOption.text,
 
-            if (
-                !quantity ||
-                quantity < 1
-            ) {
+      quantity:
+        calc.quantity,
 
-                alert(
-                    "Please enter a valid quantity."
-                );
+      pricePerSheet:
+        calc.pricePerSheet,
 
-                return;
+      subtotal:
+        calc.subtotal,
 
-            }
+      cgstAmount:
+        calc.cgstAmount,
 
+      sgstAmount:
+        calc.sgstAmount,
 
-            /* GST */
+      total:
+        calc.total,
 
-            const gstSelected =
-                document.querySelector(
-                    'input[name="gst"]:checked'
-                ).value === "yes";
+      gstType:
+        calc.gstSelected
+          ? "CGST 9% + SGST 9%"
+          : "Non-GST"
 
+    };
 
-            /* RATE */
 
-            const pricePerSheet =
-                rates[thickness];
+    submitBtn.disabled =
+      true;
 
+    submitBtn.textContent =
+      "⏳ Saving...";
 
-            /* CALCULATE */
 
-            const subtotal =
-                pricePerSheet * quantity;
-
-
-            const cgstAmount =
-                gstSelected
-                    ? subtotal * CGST_RATE
-                    : 0;
-
-
-            const sgstAmount =
-                gstSelected
-                    ? subtotal * SGST_RATE
-                    : 0;
-
-
-            const total =
-                subtotal +
-                cgstAmount +
-                sgstAmount;
-
-
-            /* THICKNESS TEXT */
-
-            const selectedOption =
-                thicknessSelect.options[
-                    thicknessSelect.selectedIndex
-                ];
-
-
-            /* DATA SENT TO GOOGLE */
-
-            const orderData = {
-
-                thickness:
-                    selectedOption.text,
-
-                quantity:
-                    quantity,
-
-                pricePerSheet:
-                    pricePerSheet,
-
-                subtotal:
-                    subtotal,
-
-                cgstAmount:
-                    cgstAmount,
-
-                sgstAmount:
-                    sgstAmount,
-
-                total:
-                    total,
-
-                gstType:
-                    gstSelected
-                        ? "CGST 9% + SGST 9%"
-                        : "Non-GST"
-
-            };
-
-
-            /* DISABLE BUTTON */
-
-            submitBtn.disabled =
-                true;
-
-
-            submitBtn.textContent =
-                "⏳ Saving...";
-
-
-            try {
-
-
-                const response =
-                    await fetch(
-                        GOOGLE_SCRIPT_URL,
-                        {
-
-                            method: "POST",
-
-                            mode: "no-cors",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "text/plain;charset=utf-8"
-
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    orderData
-                                )
-
-                        }
-                    );
-
-
-                /*
-                    no-cors means the browser
-                    cannot read the response.
-
-                    If the request reaches
-                    Google Apps Script,
-                    the data will be saved.
-                */
-
-
-                /* LOCAL COPY */
-
-                const localOrder = {
-
-                    id:
-                        Date.now(),
-
-                    thickness:
-                        selectedOption.text,
-
-                    quantity:
-                        quantity,
-
-                    pricePerSheet:
-                        pricePerSheet,
-
-                    gst:
-                        gstSelected,
-
-                    cgstAmount:
-                        cgstAmount,
-
-                    sgstAmount:
-                        sgstAmount,
-
-                    subtotal:
-                        subtotal,
-
-                    total:
-                        total,
-
-                    createdAt:
-                        new Date()
-                            .toLocaleString()
-
-                };
-
-
-                orders.push(
-                    localOrder
-                );
-
-
-                localStorage.setItem(
-                    "steelSheetOrders",
-                    JSON.stringify(
-                        orders
-                    )
-                );
-
-
-                renderOrders();
-
-
-                showStatus(
-                    "✅ Order submitted successfully and sent to Google Sheets.",
-                    "success"
-                );
-
-
-                alert(
-                    "✅ Order submitted successfully!"
-                );
-
-
-                resetForm();
-
-
-            } catch (error) {
-
-
-                console.error(
-                    error
-                );
-
-
-                showStatus(
-                    "❌ Unable to send order to Google Sheets.",
-                    "error"
-                );
-
-
-                alert(
-                    "❌ Could not save order to Google Sheets."
-                );
-
-
-            } finally {
-
-
-                submitBtn.disabled =
-                    false;
-
-
-                submitBtn.textContent =
-                    "📩 Submit Order";
-
-            }
-
-
-        }
+    showStatus(
+      "Saving order to Google Sheets...",
+      "info"
     );
+
+
+    try {
+
+      /*
+        Send data to Apps Script.
+
+        IMPORTANT:
+        Do not add mode:"no-cors".
+      */
+
+      const response =
+        await fetch(
+          GOOGLE_SCRIPT_URL,
+          {
+
+            method:
+              "POST",
+
+            redirect:
+              "follow",
+
+            headers: {
+
+              "Content-Type":
+                "text/plain;charset=utf-8"
+
+            },
+
+            body:
+              JSON.stringify(
+                orderData
+              )
+
+          }
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Server returned HTTP " +
+          response.status
+        );
+
+      }
+
+
+      const result =
+        await response.json();
+
+
+      if (!result.success) {
+
+        throw new Error(
+          result.error ||
+          "Google Sheets did not confirm the save."
+        );
+
+      }
+
+
+      /*
+        Google Apps Script successfully
+        saved the data.
+      */
+
+      const savedOrderNo =
+        result.orderNo ||
+        orderNo;
+
+
+      /*
+        Save local browser copy.
+      */
+
+      const localOrder = {
+
+        id:
+          Date.now(),
+
+        orderNo:
+          savedOrderNo,
+
+        thickness:
+          selectedOption.text,
+
+        quantity:
+          calc.quantity,
+
+        pricePerSheet:
+          calc.pricePerSheet,
+
+        gst:
+          calc.gstSelected,
+
+        cgstAmount:
+          calc.cgstAmount,
+
+        sgstAmount:
+          calc.sgstAmount,
+
+        subtotal:
+          calc.subtotal,
+
+        total:
+          calc.total,
+
+        createdAt:
+          new Date()
+            .toLocaleString()
+
+      };
+
+
+      orders.push(
+        localOrder
+      );
+
+
+      localStorage.setItem(
+        "steelSheetOrders",
+        JSON.stringify(
+          orders
+        )
+      );
+
+
+      renderOrders();
+
+
+      showStatus(
+        "✅ Saved successfully in Google Sheets. Order No: " +
+        savedOrderNo,
+        "success"
+      );
+
+
+      /*
+        Reset form after successful save.
+      */
+
+      resetForm(
+        false
+      );
+
+
+    } catch(error) {
+
+      console.error(
+        "Google Sheets error:",
+        error
+      );
+
+
+      showStatus(
+        "❌ Could not save to Google Sheets. " +
+        error.message,
+        "error"
+      );
+
+
+    } finally {
+
+      submitBtn.disabled =
+        false;
+
+      submitBtn.textContent =
+        "📩 Submit Order";
+
+    }
+
+  }
+);
 
 
 /* =====================================================
    RESET
-===================================================== */
+   ===================================================== */
 
 resetBtn.addEventListener(
-    "click",
-    resetForm
+  "click",
+  function() {
+
+    resetForm(
+      true
+    );
+
+  }
 );
 
 
-function resetForm() {
+function resetForm(
+  clearMessage
+) {
+
+  thicknessSelect.value =
+    "";
+
+  quantityInput.value =
+    "1";
 
 
-    thicknessSelect.value =
-        "";
+  document.querySelector(
+    'input[name="gst"][value="no"]'
+  ).checked =
+    true;
 
 
-    quantityInput.value =
-        "1";
+  updateCalculation();
 
 
-    document.querySelector(
-        'input[name="gst"][value="no"]'
-    ).checked = true;
+  if (clearMessage) {
 
+    statusMessage.textContent =
+      "";
 
-    updateCalculation();
+    statusMessage.className =
+      "status";
+
+  }
 
 }
 
 
 /* =====================================================
    RENDER LOCAL ORDERS
-===================================================== */
+   ===================================================== */
 
 function renderOrders() {
 
+  if (
+    orders.length === 0
+  ) {
 
-    if (
-        orders.length === 0
-    ) {
+    orderListDiv.innerHTML =
+      '<div class="empty-orders">' +
+      'No orders yet. Submit your first quote above.' +
+      '</div>';
 
+    return;
 
-        orderListDiv.innerHTML =
-
-            '<div class="empty-orders">' +
-
-            'No orders yet. ' +
-
-            'Submit your first quote above.' +
-
-            '</div>';
+  }
 
 
-        return;
-
-    }
+  let html = "";
 
 
-    let html = "";
+  [...orders]
+    .reverse()
+    .forEach(
+      function(order) {
+
+        const gstLabel =
+          order.gst
+            ? "GST: CGST 9% + SGST 9%"
+            : "Non-GST";
 
 
-    orders.forEach(
-        (order, index) => {
+        html += `
+
+          <div class="order-card">
+
+            <div class="order-details">
+
+              <strong>
+                ${order.orderNo || "Local Order"}
+              </strong>
+
+              (${order.createdAt})
+
+              <br>
+
+              Thickness:
+              ${order.thickness}
+
+              <br>
+
+              Quantity:
+              ${order.quantity}
+              sheets
+
+              <br>
+
+              Rate:
+              ${formatMoney(
+                order.pricePerSheet
+              )}
+              /sheet
+
+              <br>
+
+              Subtotal:
+              ${formatMoney(
+                order.subtotal
+              )}
+
+              <br>
+
+              CGST (9%):
+              ${formatMoney(
+                order.cgstAmount
+              )}
+
+              &nbsp; | &nbsp;
+
+              SGST (9%):
+              ${formatMoney(
+                order.sgstAmount
+              )}
+
+              <br>
+
+              <strong>
+                Total:
+                ${formatMoney(
+                  order.total
+                )}
+              </strong>
+
+              <br>
+
+              ${gstLabel}
+
+            </div>
 
 
-            const gstLabel =
-                order.gst
-                    ? "GST: CGST 9% + SGST 9%"
-                    : "Non-GST";
+            <div class="order-actions">
+
+              <button
+                class="edit-btn"
+                type="button"
+                onclick="editOrder(${order.id})"
+              >
+                ✏️ Edit
+              </button>
 
 
-            html += `
+              <button
+                class="delete-btn"
+                type="button"
+                onclick="deleteOrder(${order.id})"
+              >
+                🗑️ Delete
+              </button>
 
-                <div class="order-card">
+            </div>
 
-                    <div class="order-details">
+          </div>
 
-                        <strong>
-                            Order #${index + 1}
-                        </strong>
+        `;
 
-                        (${order.createdAt})
-
-                        <br>
-
-                        Thickness:
-                        ${order.thickness}
-
-                        <br>
-
-                        Quantity:
-                        ${order.quantity}
-                        sheets
-
-                        <br>
-
-                        Rate:
-                        ₹${order.pricePerSheet.toFixed(2)}
-                        /sheet
-
-                        <br>
-
-                        Subtotal:
-                        ₹${order.subtotal.toFixed(2)}
-
-                        <br>
-
-                        CGST (9%):
-                        ₹${order.cgstAmount.toFixed(2)}
-
-                        &nbsp; | &nbsp;
-
-                        SGST (9%):
-                        ₹${order.sgstAmount.toFixed(2)}
-
-                        <br>
-
-                        <strong>
-                            Total:
-                            ₹${order.total.toFixed(2)}
-                        </strong>
-
-                        <br>
-
-                        ${gstLabel}
-
-                    </div>
-
-
-                    <div class="order-actions">
-
-                        <button
-                            class="edit-btn"
-                            onclick="editOrder(${order.id})"
-                        >
-                            ✏️ Edit
-                        </button>
-
-
-                        <button
-                            class="delete-btn"
-                            onclick="deleteOrder(${order.id})"
-                        >
-                            🗑️ Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
+      }
     );
 
 
-    orderListDiv.innerHTML =
-        html;
+  orderListDiv.innerHTML =
+    html;
 
 }
 
 
 /* =====================================================
-   EDIT ORDER
-===================================================== */
+   EDIT LOCAL ORDER
+   ===================================================== */
 
 window.editOrder =
-    function(id) {
+function(id) {
+
+  const order =
+    orders.find(
+      function(item) {
+
+        return item.id === id;
+
+      }
+    );
 
 
-        const order =
-            orders.find(
-                o => o.id === id
-            );
+  if (!order) {
+
+    return;
+
+  }
 
 
-        if (!order) return;
+  for (
+    let i = 0;
+    i < thicknessSelect.options.length;
+    i++
+  ) {
+
+    if (
+      thicknessSelect.options[i].text ===
+      order.thickness
+    ) {
+
+      thicknessSelect.value =
+        thicknessSelect.options[i].value;
+
+      break;
+
+    }
+
+  }
 
 
-        /* FIND THICKNESS */
-
-        for (
-            let i = 0;
-            i < thicknessSelect.options.length;
-            i++
-        ) {
+  quantityInput.value =
+    order.quantity;
 
 
-            if (
-                thicknessSelect
-                    .options[i]
-                    .text ===
-                order.thickness
-            ) {
+  document.querySelector(
+    order.gst
+      ? 'input[name="gst"][value="yes"]'
+      : 'input[name="gst"][value="no"]'
+  ).checked =
+    true;
 
 
-                thicknessSelect.value =
-                    thicknessSelect
-                        .options[i]
-                        .value;
+  updateCalculation();
 
 
-                break;
+  /*
+    Remove local copy.
 
-            }
+    The existing Google Sheet row
+    is NOT changed by this function.
+  */
 
-        }
+  orders =
+    orders.filter(
+      function(item) {
 
+        return item.id !== id;
 
-        quantityInput.value =
-            order.quantity;
-
-
-        /* GST */
-
-        if (order.gst) {
-
-
-            document.querySelector(
-                'input[name="gst"][value="yes"]'
-            ).checked = true;
+      }
+    );
 
 
-        } else {
+  localStorage.setItem(
+    "steelSheetOrders",
+    JSON.stringify(
+      orders
+    )
+  );
 
 
-            document.querySelector(
-                'input[name="gst"][value="no"]'
-            ).checked = true;
-
-        }
+  renderOrders();
 
 
-        updateCalculation();
+  showStatus(
+    "Order loaded for editing. Click Submit Order to save it again.",
+    "info"
+  );
 
 
-        /* REMOVE OLD LOCAL ORDER */
+  window.scrollTo({
 
-        orders =
-            orders.filter(
-                o => o.id !== id
-            );
+    top: 0,
 
+    behavior: "smooth"
 
-        localStorage.setItem(
-            "steelSheetOrders",
-            JSON.stringify(
-                orders
-            )
-        );
+  });
 
-
-        renderOrders();
-
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
-
-    };
+};
 
 
 /* =====================================================
-   DELETE ORDER
-===================================================== */
+   DELETE LOCAL ORDER
+   ===================================================== */
 
 window.deleteOrder =
-    function(id) {
+function(id) {
+
+  if (
+    !confirm(
+      "Delete this order from local history?"
+    )
+  ) {
+
+    return;
+
+  }
 
 
-        if (
-            !confirm(
-                "Delete this order?"
-            )
-        ) return;
+  /*
+    This deletes only the browser copy.
+    It does NOT delete the Google Sheet row.
+  */
+
+  orders =
+    orders.filter(
+      function(item) {
+
+        return item.id !== id;
+
+      }
+    );
 
 
-        orders =
-            orders.filter(
-                o => o.id !== id
-            );
+  localStorage.setItem(
+    "steelSheetOrders",
+    JSON.stringify(
+      orders
+    )
+  );
 
 
-        localStorage.setItem(
-            "steelSheetOrders",
-            JSON.stringify(
-                orders
-            )
-        );
+  renderOrders();
 
-
-        renderOrders();
-
-    };
+};
 
 
 /* =====================================================
-   INITIAL ORDER DISPLAY
-===================================================== */
+   INITIALIZE
+   ===================================================== */
+
+updateCalculation();
 
 renderOrders();
-
 
 </script>
 
 </body>
-
 </html>
+```
