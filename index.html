@@ -1,241 +1,1715 @@
-```javascript
-const SPREADSHEET_ID =
-  "1JAH_6YLbS2ZflPq_ewtsrHi6StH6eRox2v9GRUcfRUc";
+<!DOCTYPE html>
+<html lang="en">
 
-const SHEET_NAME = "Sheet1";
+<head>
 
-const DRIVE_FOLDER_NAME =
-  "Steel Sheet Payment Screenshots";
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Steel Sheet Quotation</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #333;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .radio-group label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .radio-group input {
+      width: auto;
+    }
+
+    .price-info {
+      background: #f1f3f5;
+      padding: 14px;
+      border-radius: 7px;
+      margin-bottom: 15px;
+    }
+
+    .calculation {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .calc-row:last-child {
+      border-bottom: none;
+    }
+
+    .total {
+      font-size: 20px;
+      font-weight: bold;
+      padding-top: 15px;
+    }
+
+    .payment-box {
+      border: 2px dashed #aaa;
+      padding: 18px;
+      border-radius: 8px;
+      background: #fafafa;
+      margin-bottom: 20px;
+    }
+
+    .payment-box input {
+      background: white;
+    }
+
+    #paymentPreview {
+      display: none;
+      max-width: 100%;
+      max-height: 300px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    button {
+      flex: 1;
+      border: none;
+      padding: 13px;
+      border-radius: 7px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #222;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #444;
+    }
+
+    .btn-secondary {
+      background: #ddd;
+      color: #222;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 7px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .status.success {
+      display: block;
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status.error {
+      display: block;
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .status.info {
+      display: block;
+      background: #d9edf7;
+      color: #31708f;
+    }
+
+    .order-history {
+      margin-top: 35px;
+    }
+
+    .order-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #fafafa;
+    }
+
+    .order-card strong {
+      display: inline-block;
+      min-width: 130px;
+    }
+
+    .required {
+      color: red;
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+
+</head>
 
 
-function doGet() {
+<body>
 
-  return ContentService
-    .createTextOutput(
-      "Quotation API is working"
+
+<div class="container">
+
+  <h1>📋 Steel Sheet Quotation</h1>
+
+  <p class="subtitle">
+    Select your requirements and get an instant quote
+  </p>
+
+
+  <div id="statusMessage" class="status"></div>
+
+
+  <form id="quoteForm">
+
+
+    <!-- ==========================================
+         CUSTOMER DETAILS
+         ========================================== -->
+
+    <div class="form-group">
+
+      <label for="clientName">
+        Client Name <span class="required">*</span>
+      </label>
+
+      <input
+        type="text"
+        id="clientName"
+        placeholder="Enter client name"
+        required
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="companyName">
+        Company Name <span class="required">*</span>
+      </label>
+
+      <input
+        type="text"
+        id="companyName"
+        placeholder="Enter company name"
+        required
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="mobileNo">
+        Mobile No. <span class="required">*</span>
+      </label>
+
+      <input
+        type="tel"
+        id="mobileNo"
+        placeholder="Enter 10-digit mobile number"
+        maxlength="10"
+        pattern="[0-9]{10}"
+        inputmode="numeric"
+        required
+      >
+
+    </div>
+
+
+    <!-- ==========================================
+         SHEET THICKNESS
+         ========================================== -->
+
+    <div class="form-group">
+
+      <label for="thickness">
+        Sheet Thickness <span class="required">*</span>
+      </label>
+
+      <select id="thickness" required>
+
+        <option value="">
+          -- Select Thickness --
+        </option>
+
+        <option value="1">
+          22G - 0.80 mm
+        </option>
+
+        <option value="2">
+          24G - 0.60 mm
+        </option>
+
+        <option value="3">
+          23G - 0.70 mm
+        </option>
+
+        <option value="4">
+          18G - 1.20 mm
+        </option>
+
+        <option value="5">
+          20G - 1.00 mm
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ==========================================
+         QUANTITY
+         ========================================== -->
+
+    <div class="form-group">
+
+      <label for="quantity">
+        Quantity (Sheets) <span class="required">*</span>
+      </label>
+
+      <input
+        type="number"
+        id="quantity"
+        min="1"
+        step="1"
+        value="1"
+        required
+      >
+
+    </div>
+
+
+    <!-- ==========================================
+         GST
+         ========================================== -->
+
+    <div class="form-group">
+
+      <label>
+        GST Option
+      </label>
+
+      <div class="radio-group">
+
+        <label>
+
+          <input
+            type="radio"
+            name="gst"
+            value="no"
+            checked
+          >
+
+          Non-GST
+
+        </label>
+
+
+        <label>
+
+          <input
+            type="radio"
+            name="gst"
+            value="yes"
+          >
+
+          GST - CGST 9% + SGST 9%
+
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         PRICE INFORMATION
+         ========================================== -->
+
+    <div class="price-info">
+
+      <div>
+        Selected:
+        <strong id="selectedThickness">—</strong>
+      </div>
+
+      <div>
+        Rate:
+        <strong id="rateDisplay">₹0.00</strong>
+        / sheet
+      </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         CALCULATION
+         ========================================== -->
+
+    <div class="calculation">
+
+      <div class="calc-row">
+
+        <span>
+          Quantity
+        </span>
+
+        <span id="quantityDisplay">
+          0 sheets
+        </span>
+
+      </div>
+
+
+      <div class="calc-row">
+
+        <span>
+          Subtotal
+        </span>
+
+        <span id="subtotalDisplay">
+          ₹0.00
+        </span>
+
+      </div>
+
+
+      <div
+        class="calc-row"
+        id="cgstRow"
+        style="display:none;"
+      >
+
+        <span>
+          CGST (9%)
+        </span>
+
+        <span id="cgstDisplay">
+          ₹0.00
+        </span>
+
+      </div>
+
+
+      <div
+        class="calc-row"
+        id="sgstRow"
+        style="display:none;"
+      >
+
+        <span>
+          SGST (9%)
+        </span>
+
+        <span id="sgstDisplay">
+          ₹0.00
+        </span>
+
+      </div>
+
+
+      <div class="calc-row total">
+
+        <span>
+          Total
+        </span>
+
+        <span id="totalDisplay">
+          ₹0.00
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         PAYMENT SCREENSHOT
+         ========================================== -->
+
+    <div class="payment-box">
+
+      <label for="paymentScreenshot">
+
+        Payment Screenshot
+        <span class="required">*</span>
+
+      </label>
+
+      <p>
+        Please upload the payment screenshot before
+        submitting the order.
+      </p>
+
+      <input
+        type="file"
+        id="paymentScreenshot"
+        accept="image/*"
+        required
+      >
+
+      <img
+        id="paymentPreview"
+        alt="Payment Screenshot Preview"
+      >
+
+    </div>
+
+
+    <!-- ==========================================
+         BUTTONS
+         ========================================== -->
+
+    <div class="btn-group">
+
+      <button
+        type="submit"
+        class="btn-primary"
+        id="submitBtn"
+      >
+        📩 Submit Order
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-secondary"
+        id="resetBtn"
+      >
+        🔄 Reset
+      </button>
+
+    </div>
+
+
+  </form>
+
+
+  <!-- ==========================================
+       ORDER HISTORY
+       ========================================== -->
+
+  <div class="order-history">
+
+    <h2>
+      📦 Your Orders
+    </h2>
+
+    <div id="orderList"></div>
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+   GOOGLE APPS SCRIPT URL
+   ===================================================== */
+
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyfGbakra6fLD0omRR_gRlxcTtYe9pFbIhTX1nx5j9lXE6NTV5H_v2OYCYGz0CV_uzC/exec";
+
+
+/* =====================================================
+   RATES
+   ===================================================== */
+
+const rates = {
+
+  "1": 1250,
+
+  "2": 1400,
+
+  "3": 1550,
+
+  "4": 7.00,
+
+  "5": 8.50
+
+};
+
+
+/* =====================================================
+   GST
+   ===================================================== */
+
+const CGST_RATE = 0.09;
+
+const SGST_RATE = 0.09;
+
+
+/* =====================================================
+   DOM ELEMENTS
+   ===================================================== */
+
+const quoteForm =
+  document.getElementById("quoteForm");
+
+const clientNameInput =
+  document.getElementById("clientName");
+
+const companyNameInput =
+  document.getElementById("companyName");
+
+const mobileNoInput =
+  document.getElementById("mobileNo");
+
+const thicknessSelect =
+  document.getElementById("thickness");
+
+const quantityInput =
+  document.getElementById("quantity");
+
+const paymentScreenshotInput =
+  document.getElementById("paymentScreenshot");
+
+const paymentPreview =
+  document.getElementById("paymentPreview");
+
+const gstRadios =
+  document.querySelectorAll(
+    'input[name="gst"]'
+  );
+
+const selectedThicknessSpan =
+  document.getElementById(
+    "selectedThickness"
+  );
+
+const rateDisplay =
+  document.getElementById(
+    "rateDisplay"
+  );
+
+const quantityDisplay =
+  document.getElementById(
+    "quantityDisplay"
+  );
+
+const subtotalDisplay =
+  document.getElementById(
+    "subtotalDisplay"
+  );
+
+const cgstDisplay =
+  document.getElementById(
+    "cgstDisplay"
+  );
+
+const sgstDisplay =
+  document.getElementById(
+    "sgstDisplay"
+  );
+
+const totalDisplay =
+  document.getElementById(
+    "totalDisplay"
+  );
+
+const cgstRow =
+  document.getElementById(
+    "cgstRow"
+  );
+
+const sgstRow =
+  document.getElementById(
+    "sgstRow"
+  );
+
+const submitBtn =
+  document.getElementById(
+    "submitBtn"
+  );
+
+const resetBtn =
+  document.getElementById(
+    "resetBtn"
+  );
+
+const statusMessage =
+  document.getElementById(
+    "statusMessage"
+  );
+
+const orderListDiv =
+  document.getElementById(
+    "orderList"
+  );
+
+
+/* =====================================================
+   LOCAL ORDER HISTORY
+   ===================================================== */
+
+let orders =
+  JSON.parse(
+    localStorage.getItem(
+      "steelSheetOrders"
+    )
+  ) || [];
+
+
+/* =====================================================
+   MONEY FORMAT
+   ===================================================== */
+
+function formatMoney(value) {
+
+  return "₹" +
+    Number(value).toFixed(2);
+
+}
+
+
+/* =====================================================
+   STATUS MESSAGE
+   ===================================================== */
+
+function showStatus(message, type) {
+
+  statusMessage.textContent =
+    message;
+
+  statusMessage.className =
+    "status " + type;
+
+}
+
+
+/* =====================================================
+   CALCULATION
+   ===================================================== */
+
+function getCalculation() {
+
+  const thickness =
+    thicknessSelect.value;
+
+  const quantity =
+    parseInt(
+      quantityInput.value,
+      10
+    ) || 0;
+
+  const gstSelected =
+    document.querySelector(
+      'input[name="gst"]:checked'
+    ).value === "yes";
+
+  const pricePerSheet =
+    rates[thickness] || 0;
+
+  const subtotal =
+    pricePerSheet * quantity;
+
+  let cgstAmount = 0;
+
+  let sgstAmount = 0;
+
+  if (gstSelected) {
+
+    cgstAmount =
+      subtotal * CGST_RATE;
+
+    sgstAmount =
+      subtotal * SGST_RATE;
+
+  }
+
+  const total =
+    subtotal +
+    cgstAmount +
+    sgstAmount;
+
+  return {
+
+    thickness:
+      thickness,
+
+    quantity:
+      quantity,
+
+    pricePerSheet:
+      pricePerSheet,
+
+    subtotal:
+      subtotal,
+
+    cgstAmount:
+      cgstAmount,
+
+    sgstAmount:
+      sgstAmount,
+
+    total:
+      total,
+
+    gstSelected:
+      gstSelected
+
+  };
+
+}
+
+
+/* =====================================================
+   UPDATE CALCULATION DISPLAY
+   ===================================================== */
+
+function updateCalculation() {
+
+  const calc =
+    getCalculation();
+
+  const selectedOption =
+    thicknessSelect.options[
+      thicknessSelect.selectedIndex
+    ];
+
+
+  if (calc.thickness) {
+
+    selectedThicknessSpan.textContent =
+      selectedOption.text;
+
+  } else {
+
+    selectedThicknessSpan.textContent =
+      "—";
+
+  }
+
+
+  rateDisplay.textContent =
+    formatMoney(
+      calc.pricePerSheet
     );
 
+
+  quantityDisplay.textContent =
+    calc.quantity +
+    " sheets";
+
+
+  subtotalDisplay.textContent =
+    formatMoney(
+      calc.subtotal
+    );
+
+
+  cgstDisplay.textContent =
+    formatMoney(
+      calc.cgstAmount
+    );
+
+
+  sgstDisplay.textContent =
+    formatMoney(
+      calc.sgstAmount
+    );
+
+
+  totalDisplay.textContent =
+    formatMoney(
+      calc.total
+    );
+
+
+  if (calc.gstSelected) {
+
+    cgstRow.style.display =
+      "flex";
+
+    sgstRow.style.display =
+      "flex";
+
+  } else {
+
+    cgstRow.style.display =
+      "none";
+
+    sgstRow.style.display =
+      "none";
+
+  }
+
 }
 
 
-function doPost(e) {
+/* =====================================================
+   PAYMENT SCREENSHOT PREVIEW
+   ===================================================== */
 
-  try {
+paymentScreenshotInput.addEventListener(
+  "change",
+  function() {
 
-    const spreadsheet =
-      SpreadsheetApp.openById(
-        SPREADSHEET_ID
-      );
+    const file =
+      this.files[0];
 
-    let sheet =
-      spreadsheet.getSheetByName(
-        SHEET_NAME
-      );
+    if (!file) {
 
+      paymentPreview.style.display =
+        "none";
 
-    if (!sheet) {
+      paymentPreview.src =
+        "";
 
-      sheet =
-        spreadsheet.insertSheet(
-          SHEET_NAME
-        );
-
-    }
-
-
-    /* Create headers */
-
-    if (sheet.getLastRow() === 0) {
-
-      sheet.appendRow([
-
-        "Order No",
-
-        "Date & Time",
-
-        "Client Name",
-
-        "Company Name",
-
-        "Mobile No",
-
-        "Thickness",
-
-        "Quantity",
-
-        "Rate / Sheet",
-
-        "Subtotal",
-
-        "CGST 9%",
-
-        "SGST 9%",
-
-        "Total",
-
-        "GST Type",
-
-        "Payment Screenshot"
-
-      ]);
+      return;
 
     }
 
 
-    /* Read JSON */
+    if (!file.type.startsWith("image/")) {
 
-    const data =
-      JSON.parse(
-        e.postData.contents
+      showStatus(
+        "Please select an image file.",
+        "error"
       );
 
+      this.value = "";
+
+      return;
+
+    }
+
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+      function(e) {
+
+        paymentPreview.src =
+          e.target.result;
+
+        paymentPreview.style.display =
+          "block";
+
+      };
+
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+/* =====================================================
+   COMPRESS PAYMENT IMAGE
+   ===================================================== */
+
+function compressImage(file) {
+
+  return new Promise(
+    function(resolve, reject) {
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(event) {
+
+          const img =
+            new Image();
+
+
+          img.onload =
+            function() {
+
+              const maxWidth =
+                1200;
+
+              let width =
+                img.width;
+
+              let height =
+                img.height;
+
+
+              if (width > maxWidth) {
+
+                height =
+                  height *
+                  maxWidth /
+                  width;
+
+                width =
+                  maxWidth;
+
+              }
+
+
+              const canvas =
+                document.createElement(
+                  "canvas"
+                );
+
+
+              canvas.width =
+                width;
+
+              canvas.height =
+                height;
+
+
+              const ctx =
+                canvas.getContext(
+                  "2d"
+                );
+
+
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+              );
+
+
+              const compressed =
+                canvas.toDataURL(
+                  "image/jpeg",
+                  0.75
+                );
+
+
+              resolve(
+                compressed
+              );
+
+            };
+
+
+          img.onerror =
+            reject;
+
+
+          img.src =
+            event.target.result;
+
+        };
+
+
+      reader.onerror =
+        reject;
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   EVENT LISTENERS
+   ===================================================== */
+
+thicknessSelect.addEventListener(
+  "change",
+  updateCalculation
+);
+
+
+quantityInput.addEventListener(
+  "input",
+  updateCalculation
+);
+
+
+gstRadios.forEach(
+  function(radio) {
+
+    radio.addEventListener(
+      "change",
+      updateCalculation
+    );
+
+  }
+);
+
+
+/* =====================================================
+   MOBILE NUMBER
+   ===================================================== */
+
+mobileNoInput.addEventListener(
+  "input",
+  function() {
+
+    this.value =
+      this.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+
+  }
+);
+
+
+/* =====================================================
+   SUBMIT ORDER
+   ===================================================== */
+
+quoteForm.addEventListener(
+  "submit",
+  async function(e) {
+
+    e.preventDefault();
+
+
+    /* -----------------------------------------------
+       CUSTOMER VALIDATION
+       ----------------------------------------------- */
+
+    const clientName =
+      clientNameInput.value.trim();
+
+    const companyName =
+      companyNameInput.value.trim();
+
+    const mobileNo =
+      mobileNoInput.value.trim();
+
+
+    if (!clientName) {
+
+      showStatus(
+        "Please enter Client Name.",
+        "error"
+      );
+
+      clientNameInput.focus();
+
+      return;
+
+    }
+
+
+    if (!companyName) {
+
+      showStatus(
+        "Please enter Company Name.",
+        "error"
+      );
+
+      companyNameInput.focus();
+
+      return;
+
+    }
+
+
+    if (!/^[0-9]{10}$/.test(mobileNo)) {
+
+      showStatus(
+        "Please enter a valid 10-digit Mobile No.",
+        "error"
+      );
+
+      mobileNoInput.focus();
+
+      return;
+
+    }
+
+
+    /* -----------------------------------------------
+       CALCULATION VALIDATION
+       ----------------------------------------------- */
+
+    const calc =
+      getCalculation();
+
+
+    if (!calc.thickness) {
+
+      showStatus(
+        "Please select a sheet thickness.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if (
+      !calc.quantity ||
+      calc.quantity < 1
+    ) {
+
+      showStatus(
+        "Please enter a valid quantity.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    /* -----------------------------------------------
+       PAYMENT SCREENSHOT VALIDATION
+       ----------------------------------------------- */
+
+    const paymentFile =
+      paymentScreenshotInput.files[0];
+
+
+    if (!paymentFile) {
+
+      showStatus(
+        "Please upload the payment screenshot before submitting.",
+        "error"
+      );
+
+      paymentScreenshotInput.focus();
+
+      return;
+
+    }
+
+
+    /* -----------------------------------------------
+       ORDER NUMBER
+       ----------------------------------------------- */
 
     const orderNo =
-      data.orderNo ||
-      ("ORD-" + Date.now());
+      "ORD-" + Date.now();
 
 
-    /* Find or create Drive folder */
+    const selectedOption =
+      thicknessSelect.options[
+        thicknessSelect.selectedIndex
+      ];
 
-    const folders =
-      DriveApp.getFoldersByName(
-        DRIVE_FOLDER_NAME
+
+    /* -----------------------------------------------
+       COMPRESS PAYMENT IMAGE
+       ----------------------------------------------- */
+
+    let paymentBase64;
+
+    try {
+
+      paymentBase64 =
+        await compressImage(
+          paymentFile
+        );
+
+    } catch(error) {
+
+      showStatus(
+        "Could not process payment screenshot.",
+        "error"
       );
 
-    let folder;
-
-    if (folders.hasNext()) {
-
-      folder =
-        folders.next();
-
-    } else {
-
-      folder =
-        DriveApp.createFolder(
-          DRIVE_FOLDER_NAME
-        );
+      return;
 
     }
 
 
-    /* Save payment screenshot */
+    /* -----------------------------------------------
+       DATA TO GOOGLE SHEETS
+       ----------------------------------------------- */
 
-    let paymentUrl = "";
+    const orderData = {
+
+      orderNo:
+        orderNo,
+
+      clientName:
+        clientName,
+
+      companyName:
+        companyName,
+
+      mobileNo:
+        mobileNo,
+
+      thickness:
+        selectedOption.text,
+
+      quantity:
+        calc.quantity,
+
+      pricePerSheet:
+        calc.pricePerSheet,
+
+      subtotal:
+        calc.subtotal,
+
+      cgstAmount:
+        calc.cgstAmount,
+
+      sgstAmount:
+        calc.sgstAmount,
+
+      total:
+        calc.total,
+
+      gstType:
+        calc.gstSelected
+          ? "CGST 9% + SGST 9%"
+          : "Non-GST",
+
+      paymentScreenshot:
+        paymentBase64
+
+    };
 
 
-    if (data.paymentScreenshot) {
+    /* -----------------------------------------------
+       DISABLE BUTTON
+       ----------------------------------------------- */
 
-      const base64Data =
-        data.paymentScreenshot.split(",")[1];
+    submitBtn.disabled =
+      true;
+
+    submitBtn.textContent =
+      "⏳ Saving...";
 
 
-      const bytes =
-        Utilities.base64Decode(
-          base64Data
+    showStatus(
+      "Saving order to Google Sheets...",
+      "info"
+    );
+
+
+    /* -----------------------------------------------
+       SEND TO APPS SCRIPT
+       ----------------------------------------------- */
+
+    try {
+
+      const response =
+        await fetch(
+          GOOGLE_SCRIPT_URL,
+          {
+
+            method:
+              "POST",
+
+            redirect:
+              "follow",
+
+            headers: {
+
+              "Content-Type":
+                "text/plain;charset=utf-8"
+
+            },
+
+            body:
+              JSON.stringify(
+                orderData
+              )
+
+          }
         );
 
 
-      const blob =
-        Utilities.newBlob(
-          bytes,
-          "image/jpeg",
-          orderNo + "_Payment.jpg"
+      if (!response.ok) {
+
+        throw new Error(
+          "Server returned HTTP " +
+          response.status
         );
 
+      }
 
-      const file =
-        folder.createFile(
-          blob
+
+      const result =
+        await response.json();
+
+
+      if (!result.success) {
+
+        throw new Error(
+          result.error ||
+          "Google Sheets did not confirm the save."
         );
 
-
-      paymentUrl =
-        file.getUrl();
-
-    }
+      }
 
 
-    /* Save row */
+      /* ---------------------------------------------
+         SAVE LOCAL ORDER
+         --------------------------------------------- */
 
-    sheet.appendRow([
-
-      orderNo,
-
-      new Date(),
-
-      data.clientName || "",
-
-      data.companyName || "",
-
-      data.mobileNo || "",
-
-      data.thickness || "",
-
-      Number(data.quantity) || 0,
-
-      Number(data.pricePerSheet) || 0,
-
-      Number(data.subtotal) || 0,
-
-      Number(data.cgstAmount) || 0,
-
-      Number(data.sgstAmount) || 0,
-
-      Number(data.total) || 0,
-
-      data.gstType || "",
-
-      paymentUrl
-
-    ]);
+      const savedOrderNo =
+        result.orderNo ||
+        orderNo;
 
 
-    return ContentService
+      const localOrder = {
 
-      .createTextOutput(
+        id:
+          Date.now(),
 
-        JSON.stringify({
+        orderNo:
+          savedOrderNo,
 
-          success: true,
+        clientName:
+          clientName,
 
-          orderNo: orderNo,
+        companyName:
+          companyName,
 
-          paymentUrl: paymentUrl
+        mobileNo:
+          mobileNo,
 
-        })
+        thickness:
+          selectedOption.text,
 
-      )
+        quantity:
+          calc.quantity,
 
-      .setMimeType(
-        ContentService.MimeType.JSON
+        pricePerSheet:
+          calc.pricePerSheet,
+
+        subtotal:
+          calc.subtotal,
+
+        cgstAmount:
+          calc.cgstAmount,
+
+        sgstAmount:
+          calc.sgstAmount,
+
+        total:
+          calc.total,
+
+        gst:
+          calc.gstSelected,
+
+        createdAt:
+          new Date().toLocaleString()
+
+      };
+
+
+      orders.push(
+        localOrder
       );
 
+
+      localStorage.setItem(
+        "steelSheetOrders",
+        JSON.stringify(
+          orders
+        )
+      );
+
+
+      renderOrders();
+
+
+      showStatus(
+        "✅ Order saved successfully! Order No: " +
+        savedOrderNo,
+        "success"
+      );
+
+
+      /* ---------------------------------------------
+         RESET FORM
+         --------------------------------------------- */
+
+      resetForm(false);
+
+
+    } catch(error) {
+
+      console.error(
+        "Google Sheets error:",
+        error
+      );
+
+
+      showStatus(
+        "❌ Could not save to Google Sheets. " +
+        error.message,
+        "error"
+      );
+
+
+    } finally {
+
+      submitBtn.disabled =
+        false;
+
+      submitBtn.textContent =
+        "📩 Submit Order";
+
+    }
 
   }
+);
 
-  catch(error) {
 
-    return ContentService
+/* =====================================================
+   RESET FORM
+   ===================================================== */
 
-      .createTextOutput(
+function resetForm(showMessage = true) {
 
-        JSON.stringify({
+  quoteForm.reset();
 
-          success: false,
 
-          error:
-            error.toString()
+  paymentPreview.src =
+    "";
 
-        })
+  paymentPreview.style.display =
+    "none";
 
-      )
 
-      .setMimeType(
-        ContentService.MimeType.JSON
-      );
+  document.querySelector(
+    'input[name="gst"][value="no"]'
+  ).checked = true;
+
+
+  quantityInput.value =
+    1;
+
+
+  updateCalculation();
+
+
+  if (showMessage) {
+
+    showStatus(
+      "Form has been reset.",
+      "info"
+    );
 
   }
 
 }
-```
+
+
+resetBtn.addEventListener(
+  "click",
+  function() {
+
+    resetForm(true);
+
+  }
+);
+
+
+/* =====================================================
+   ORDER HISTORY
+   ===================================================== */
+
+function renderOrders() {
+
+  orderListDiv.innerHTML =
+    "";
+
+
+  if (orders.length === 0) {
+
+    orderListDiv.innerHTML =
+      "<p>No orders yet.</p>";
+
+    return;
+
+  }
+
+
+  const latestOrders =
+    orders
+      .slice()
+      .reverse()
+      .slice(0, 20);
+
+
+  latestOrders.forEach(
+    function(order) {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "order-card";
+
+
+      card.innerHTML = `
+
+        <div>
+          <strong>Order No:</strong>
+          ${order.orderNo}
+        </div>
+
+        <div>
+          <strong>Client:</strong>
+          ${order.clientName || ""}
+        </div>
+
+        <div>
+          <strong>Company:</strong>
+          ${order.companyName || ""}
+        </div>
+
+        <div>
+          <strong>Mobile:</strong>
+          ${order.mobileNo || ""}
+        </div>
+
+        <div>
+          <strong>Thickness:</strong>
+          ${order.thickness}
+        </div>
+
+        <div>
+          <strong>Quantity:</strong>
+          ${order.quantity}
+        </div>
+
+        <div>
+          <strong>Total:</strong>
+          ${formatMoney(order.total)}
+        </div>
+
+        <div>
+          <strong>Date:</strong>
+          ${order.createdAt}
+        </div>
+
+      `;
+
+
+      orderListDiv.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   INITIAL DISPLAY
+   ===================================================== */
+
+updateCalculation();
+
+renderOrders();
+
+
+</script>
+
+
+</body>
+
+</html>
