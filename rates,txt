@@ -1,0 +1,41 @@
+# SK Air System Sheet Quotation Rates
+# Format:
+# GaugeValue|Type|GST/Non-GST|Rate
+#
+# GaugeValue:
+# 1 = 22G (0.80 mm)
+# 2 = 24G (0.60 mm)
+# 3 = 23G (0.70 mm)
+# 4 = 18G (1.20 mm)
+# 5 = 20G (1.00 mm)
+#
+# Example:
+# 1|Groove|Non-GST|1250
+# 1|Groove|GST|1250
+#
+# Replace these sample rates with your actual rates.
+
+1|Groove|Non-GST|1695
+1|Groove|GST|1600
+1|Plain|Non-GST|1695
+1|Plain|GST|1600
+
+2|Groove|Non-GST|1555
+2|Groove|GST|1466
+2|Plain|Non-GST|1555
+2|Plain|GST|1466
+
+3|Groove|Non-GST|0
+3|Groove|GST|0
+3|Plain|Non-GST|0
+3|Plain|GST|0
+
+4|Groove|Non-GST|0.00
+4|Groove|GST|0.00
+4|Plain|Non-GST|0.00
+4|Plain|GST|0000
+
+5|Groove|Non-GST|0000
+5|Groove|GST|0000
+5|Plain|Non-GST|0000
+5|Plain|GST|0000
