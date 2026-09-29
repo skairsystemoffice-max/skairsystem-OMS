@@ -15,15 +15,15 @@
 #
 # Replace these sample rates with your actual rates.
 
-1|Groove|Non-GST|1695
-1|Groove|GST|1600
-1|Plain|Non-GST|1695
-1|Plain|GST|1600
+1|Groove|Non-GST|1705
+1|Groove|GST|1605
+1|Plain|Non-GST|1705
+1|Plain|GST|1605
 
-2|Groove|Non-GST|1555
-2|Groove|GST|1466
-2|Plain|Non-GST|1555
-2|Plain|GST|1466
+2|Groove|Non-GST|1310
+2|Groove|GST|1235
+2|Plain|Non-GST|1310
+2|Plain|GST|1235
 
 3|Groove|Non-GST|0
 3|Groove|GST|0
